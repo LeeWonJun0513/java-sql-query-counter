@@ -1,0 +1,2 @@
+Premain-Class: net.dishevelled.sqlcounter.Agent
+Boot-Class-Path: lib/javassist.jar

@@ -8,6 +8,7 @@ public class Transformer  implements ClassFileTransformer {
 
     Transform[] availableTransforms = new Transform[] {
         new MySQLTransform(),
+        new PostgresTransform(),
         new TomcatTransform(),
         new JettyTransform(),
     };

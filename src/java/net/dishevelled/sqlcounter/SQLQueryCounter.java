@@ -8,9 +8,12 @@ import java.util.Map;
 public class SQLQueryCounter {
 
     private static Map<String, AtomicInteger> queryCounts;
+    private static Map<String, Long> queryTimes;
+
 
     static {
         queryCounts = new ConcurrentHashMap<String, AtomicInteger>();
+        queryTimes = new ConcurrentHashMap<String, Long>();
     }
 
     private static String currentThread() {
@@ -35,6 +38,7 @@ public class SQLQueryCounter {
 
     public static boolean increment(String identifier) {
         AtomicInteger count = queryCounts.get(identifier);
+        queryTimes.put(identifier, System.currentTimeMillis());
 
         if (count != null) {
             count.getAndIncrement();
@@ -42,6 +46,19 @@ public class SQLQueryCounter {
         }
 
         return false;
+    }
+
+
+    public static long queryTime() {
+        return queryTime(currentThread());
+    }
+
+
+    public static long queryTime(String identifier) {
+        long start = queryTimes.get(identifier);
+        long now = System.currentTimeMillis();
+
+        return (now - start);
     }
 
 

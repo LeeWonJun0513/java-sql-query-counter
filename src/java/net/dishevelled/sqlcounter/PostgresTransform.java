@@ -41,6 +41,10 @@ public class PostgresTransform implements Transform {
                             "System.err.println(\"[STACK]> \" + net.dishevelled.sqlcounter.SQLQueryCounter.shortStackTrace(10) + \"\\n\");" +
                             "}" +
                             "}");
+
+                    method.insertAfter("{" +
+                            "System.err.println(Thread.currentThread() + \": \" + net.dishevelled.sqlcounter.SQLQueryCounter.queryTime() + \" ms\");" +
+                            "}");
                 }
             }
 
